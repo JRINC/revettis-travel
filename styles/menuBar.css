@@ -1,0 +1,12 @@
+﻿body {
+}
+
+.menu-button {
+    color: white;
+    background: black;
+    transition: .5s;
+}
+
+.menu-button:hover {
+    background: red !important;
+}
