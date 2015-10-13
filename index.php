@@ -224,7 +224,34 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Servicios</h1>
+                    <?php
+                    
+                    $url = 'http://test-9482.rhcloud.com/servicelist';
+                    
+                    // set up the request context
+                    $options = ["http" => ["method" => "GET"]];
+                                           
+                    $context = stream_context_create($options);
+                    
+                    // make the request
+                    $response = file_get_contents($url, false, $context);
+
+                    $services = json_decode($response);
+
+                    foreach ($services as $svc) {
+                        ?>
                     <div class="col-lg-6">
+                        <h3><?php echo $svc->name ?></h3>
+                        <?php if (isset($_POST['submit'])) { ?> 
+                            <a href="" class="" >Editar</a>
+                            <input type="hidden" name="hddServiceId" value="<?php echo $svc->_id ?>" />
+                        <?php  } ?>
+                        <p><?php echo $svc->description ?></p>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                    <!--div class="col-lg-6">
                         <h3>Servicio 1</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis fermentum ex id dignissim. Integer et odio ac dolor suscipit semper. Donec placerat eleifend cursus. Nulla at tortor id libero vehicula tristique. Morbi sem nisl, consectetur a leo id, sollicitudin tincidunt diam. Duis augue nisl, feugiat eget tempor et, porta vitae tellus. Nam pharetra, magna vitae rutrum ultricies, urna leo accumsan justo, id elementum purus urna ut nisi. Ut non euismod leo.</p>
                     </div>
@@ -240,7 +267,7 @@
                         <h3>Servicio 4</h3>
                         <p>Sed orci odio, laoreet molestie ligula placerat, sodales efficitur tortor. Nulla fringilla lectus interdum, rutrum tellus vitae, condimentum augue. Sed id tempus turpis. Aliquam erat volutpat. Nulla sollicitudin neque in tellus semper mattis. Aliquam massa enim, pulvinar ut finibus quis, scelerisque vel ante. Cras non mauris mattis, vehicula turpis vitae, finibus ex. Nulla facilisi. Nunc dignissim commodo dolor, vulputate lobortis neque egestas sit amet.</p>
                         <p>Duis eu neque bibendum, tempor nisi id, rutrum libero. Suspendisse potenti. Sed vitae mauris felis. Praesent vel mattis ipsum. Nullam semper erat mi, ut rhoncus quam hendrerit vitae. Nulla eget magna eget nunc tempus dapibus. Nam tempus nulla elit, sit amet dictum urna bibendum nec. Proin tortor augue, fringilla sed diam nec, tempor pulvinar nisi. Etiam in orci sit amet urna blandit congue quis ut tortor.</p>
-                    </div>
+                    </div-->
                     <?php
                         if (isset($_POST['submit'])) {
                     ?>
